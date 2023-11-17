@@ -16,16 +16,12 @@ fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
 
     MaterialTheme {
-        Button(onClick = {
-            text = "Hello, Desktop!"
-        }) {
-            Text(text)
-        }
+        AddClientScreen()
     }
 }
 
 fun main() = application {
-    DatabaseFactory.init()
+    CoffeeHouseDB.init()
 //    Window(onCloseRequest = ::exitApplication) {
 //        App()
 //    }

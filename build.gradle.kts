@@ -15,10 +15,6 @@ repositories {
 }
 val exposedVersion: String = "0.44.1"
 dependencies {
-    // Note, if you develop a library, you should use compose.desktop.common.
-    // compose.desktop.currentOs should be used in launcher-sourceSet
-    // (in a separate module for demo project and in testMain).
-    // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")

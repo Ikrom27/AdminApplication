@@ -1,6 +1,6 @@
 import org.jetbrains.exposed.dao.id.IntIdTable
 
-object Client : IntIdTable() {
+object ClientEntity : IntIdTable(name = "client") {
     val phone = varchar("phone", 45)
     val mail = varchar("mail", 45)
     val card = varchar("card", 16)
