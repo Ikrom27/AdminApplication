@@ -21,8 +21,8 @@ fun App() {
 }
 
 fun main() = application {
-    CoffeeHouseDB.init()
-//    Window(onCloseRequest = ::exitApplication) {
-//        App()
-//    }
+    CoffeeHouseDB
+    Window(onCloseRequest = ::exitApplication) {
+        App()
+    }
 }

@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object CoffeeHouseDB {
 
-    fun init(){
+    init {
         Database.connect(
             url = "jdbc:mysql://localhost:3306/coffee_house",
             driver = "com.mysql.cj.jdbc.Driver",
