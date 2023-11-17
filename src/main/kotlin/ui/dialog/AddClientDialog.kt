@@ -1,17 +1,21 @@
+package ui.dialog
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import data.Client
+import data.CoffeeHouseDB
 
 @Composable
-fun AddClientScreen() {
+fun AddClientDialog() {
     var phone by remember { mutableStateOf(TextFieldValue("")) }
     var mail by remember { mutableStateOf(TextFieldValue("")) }
     var card by remember { mutableStateOf(TextFieldValue("")) }
@@ -24,52 +28,52 @@ fun AddClientScreen() {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        TextField(
-            value = phone,
-            onValueChange = {
-                phone = it
-            },
-            label = { Text("Phone") }
-        )
-
-        TextField(
-            value = mail,
-            onValueChange = {
-                mail = it
-            },
-            label = { Text("Mail") }
-        )
-
-        TextField(
-            value = card,
-            onValueChange = {
-                card = it
-            },
-            label = { Text("Card") }
-        )
-
-        TextField(
+        OutlinedTextField(
             value = name,
             onValueChange = {
                 name = it
             },
-            label = { Text("Name") }
+            label = { Text("Имя") }
         )
 
-        TextField(
+        OutlinedTextField(
             value = secondName,
             onValueChange = {
                 secondName = it
             },
-            label = { Text("Second Name") }
+            label = { Text("Фамилия") }
         )
 
-        TextField(
+        OutlinedTextField(
+            value = mail,
+            onValueChange = {
+                mail = it
+            },
+            label = { Text("Почта") }
+        )
+
+        OutlinedTextField(
+            value = phone,
+            onValueChange = {
+                phone = it
+            },
+            label = { Text("Телефон") }
+        )
+
+        OutlinedTextField(
+            value = card,
+            onValueChange = {
+                card = it
+            },
+            label = { Text("Номер карты") }
+        )
+
+        OutlinedTextField(
             value = password,
             onValueChange = {
                 password = it
             },
-            label = { Text("Password") }
+            label = { Text("Пароль") }
         )
 
         Button(
@@ -88,7 +92,7 @@ fun AddClientScreen() {
                 .fillMaxWidth()
                 .padding(top = 16.dp)
         ) {
-            Text("Add Client")
+            Text("Добавить")
         }
     }
 }

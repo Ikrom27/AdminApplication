@@ -1,4 +1,4 @@
-
+package data
 data class Client(
     val phone: String,
     val mail: String,

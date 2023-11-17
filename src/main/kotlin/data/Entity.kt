@@ -1,3 +1,5 @@
+package data
+
 import org.jetbrains.exposed.dao.id.IntIdTable
 
 object ClientEntity : IntIdTable(name = "client") {
