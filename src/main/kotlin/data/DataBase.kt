@@ -1,6 +1,7 @@
 package data
 
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -25,6 +26,25 @@ object CoffeeHouseDB {
                 it[secondName] = client.secondName
                 it[password] = client.password
             }
+        }
+    }
+
+    fun updateClient(client: Client) {
+        transaction {
+            ClientEntity.update({ ClientEntity.id eq client.id }) {
+                it[phone] = client.phone
+                it[mail] = client.mail
+                it[card] = client.card
+                it[name] = client.name
+                it[secondName] = client.secondName
+                it[password] = client.password
+            }
+        }
+    }
+
+    fun deleteClient(clientId: Int) {
+        transaction {
+            ClientEntity.deleteWhere { ClientEntity.id eq clientId }
         }
     }
 

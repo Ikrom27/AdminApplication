@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,14 +19,16 @@ import data.BillWithOrders
 import data.Client
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ClientCardItem(client: Client) {
+fun ClientCardItem(client: Client, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
             .height(105.dp),
         shape = RoundedCornerShape(8.dp),
+        onClick = onClick,
         backgroundColor = Color(220, 210, 242)
     ) {
         Column(

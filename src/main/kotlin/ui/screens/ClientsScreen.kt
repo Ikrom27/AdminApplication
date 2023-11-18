@@ -15,18 +15,27 @@ import androidx.compose.ui.unit.dp
 import data.CoffeeHouseDB
 import ui.components.ClientCardItem
 import ui.dialog.AddClientDialog
+import ui.dialog.EditClientDialog
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ClientsScreen() {
     var isAddUserDialogVisible by remember { mutableStateOf(false) }
+    var isEditClientVisible by remember { mutableStateOf(false) }
+    var currentClientId by remember { mutableStateOf(0) }
 
     val clients = mutableStateOf(CoffeeHouseDB.getClients())
 
     LazyVerticalGrid(columns = GridCells.Fixed(3)) {
         items(clients.value.size) { index ->
-            ClientCardItem(client = clients.value[index])
+            ClientCardItem(
+                client = clients.value[index],
+                onClick = {
+                    isEditClientVisible = true
+                    currentClientId = index
+                }
+            )
         }
         item {
             Button(
@@ -50,6 +59,15 @@ fun ClientsScreen() {
             onDismissRequest = { isAddUserDialogVisible = false },
             text = {
                 AddClientDialog()
+            },
+            buttons = {}
+        )
+    }
+    if (isEditClientVisible){
+        AlertDialog(
+            onDismissRequest = { isEditClientVisible = false },
+            text = {
+                EditClientDialog(clients.value[currentClientId])
             },
             buttons = {}
         )
