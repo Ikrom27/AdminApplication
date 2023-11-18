@@ -25,7 +25,6 @@ fun AddClientDialog() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .width(128.dp)
             .padding(16.dp)
     ) {
         OutlinedTextField(
@@ -33,7 +32,9 @@ fun AddClientDialog() {
             onValueChange = {
                 name = it
             },
-            label = { Text("Имя") }
+            label = { Text("Имя") },
+            modifier = Modifier
+                .width(256.dp)
         )
 
         OutlinedTextField(
@@ -41,7 +42,9 @@ fun AddClientDialog() {
             onValueChange = {
                 secondName = it
             },
-            label = { Text("Фамилия") }
+            label = { Text("Фамилия") },
+            modifier = Modifier
+                .width(256.dp)
         )
 
         OutlinedTextField(
@@ -49,7 +52,9 @@ fun AddClientDialog() {
             onValueChange = {
                 mail = it
             },
-            label = { Text("Почта") }
+            label = { Text("Почта") },
+            modifier = Modifier
+                .width(256.dp)
         )
 
         OutlinedTextField(
@@ -57,7 +62,9 @@ fun AddClientDialog() {
             onValueChange = {
                 phone = it
             },
-            label = { Text("Телефон") }
+            label = { Text("Телефон") },
+            modifier = Modifier
+                .width(256.dp)
         )
 
         OutlinedTextField(
@@ -65,15 +72,19 @@ fun AddClientDialog() {
             onValueChange = {
                 card = it
             },
-            label = { Text("Номер карты") }
+            label = { Text("Номер карты") },
+            modifier = Modifier
+                .width(256.dp)
         )
 
         OutlinedTextField(
             value = password,
-            onValueChange = {
-                password = it
-            },
-            label = { Text("Пароль") }
+            onValueChange = { password = it },
+            maxLines = 1,
+            singleLine = true,
+            label = { Text("Пароль") },
+            modifier = Modifier
+                .width(256.dp)
         )
 
         if (errorText != ""){
@@ -100,7 +111,7 @@ fun AddClientDialog() {
                 }
             },
             modifier = Modifier
-                .fillMaxWidth()
+                .width(256.dp)
                 .padding(top = 16.dp)
         ) {
             Text("Добавить")
