@@ -85,7 +85,7 @@ fun DrawerItem(
         Text(
             text = title,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(14.dp)
+            modifier = Modifier.padding(8.dp)
         )
     }
 }

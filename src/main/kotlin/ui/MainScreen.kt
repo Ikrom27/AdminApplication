@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import ui.components.DrawerContent
 import ui.components.DrawerItem
 import ui.screens.BillsScreen
 import ui.screens.ClientsScreen
@@ -31,28 +32,6 @@ fun MainScreen() {
                 "Bills" -> BillsScreen()
                 "Coffee" -> CoffeeScreen()
             }
-        }
-    }
-}
-
-@Composable
-fun DrawerContent(
-    selected: String,
-    onSelectionChange: (String) -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        DrawerItem("Clients", selected) {
-            onSelectionChange("Clients")
-        }
-        DrawerItem("Bills", selected) {
-            onSelectionChange("Bills")
-        }
-        DrawerItem("Coffee", selected) {
-            onSelectionChange("Coffee")
         }
     }
 }
