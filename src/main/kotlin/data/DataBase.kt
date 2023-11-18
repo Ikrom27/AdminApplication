@@ -2,7 +2,7 @@ package data
 
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import data.BillEntity
+import kotlin.io.use as use1
 
 
 object CoffeeHouseDB {
@@ -33,6 +33,18 @@ object CoffeeHouseDB {
         val result = mutableListOf<Client>()
         transaction {
             ClientEntity.selectAll().forEach {
+                var averageTotal = 0.0
+
+                transaction {
+                    val query = "SELECT MIDDLE_TOTAL(${it[ClientEntity.id].value}) as result"
+                    exec(query) { result ->
+                        if (result.next()) {
+                            averageTotal = result.getDouble("result")
+                        }
+                    }
+                }
+
+
                 result.add(
                     Client(
                         it[ClientEntity.id].value,
@@ -41,7 +53,8 @@ object CoffeeHouseDB {
                         it[ClientEntity.card],
                         it[ClientEntity.name],
                         it[ClientEntity.secondName],
-                        it[ClientEntity.password]
+                        it[ClientEntity.password],
+                        averageTotal
                     )
                 )
             }

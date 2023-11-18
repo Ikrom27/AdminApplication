@@ -10,7 +10,8 @@ data class Client(
     val card: String,
     val name: String,
     val secondName: String,
-    val password: String
+    val password: String,
+    val averageTotal: Double? = null
 )
 
 data class Bill(
