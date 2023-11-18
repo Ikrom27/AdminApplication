@@ -1,6 +1,8 @@
 package data
 
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.alias
 import org.jetbrains.exposed.sql.javatime.datetime
 
 object ClientEntity : IntIdTable(name = "client") {
@@ -16,4 +18,17 @@ object BillEntity : IntIdTable(name = "bill") {
     val total = double("total")
     val date = datetime("date")
     val clientId = integer("client_client_id")
+}
+
+object CoffeeEntity : IntIdTable(name = "coffee") {
+    val name = varchar("name", 45)
+    val price = double("price")
+    val description = varchar("description", 512)
+}
+
+object CoffeeOrderEntity : Table(name = "coffee_order") {
+    val price = double("price")
+    val coffeeId = integer("coffee_coffee_id").references(CoffeeEntity.id)
+    val billId = integer("bill_bill_id").references(BillEntity.id)
+    val count = integer("count")
 }

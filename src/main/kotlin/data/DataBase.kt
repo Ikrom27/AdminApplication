@@ -2,7 +2,6 @@ package data
 
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import kotlin.io.use as use1
 
 
 object CoffeeHouseDB {
@@ -60,6 +59,47 @@ object CoffeeHouseDB {
         return result
     }
 
+    fun getAllBillsWithOrders(): List<BillWithOrders> {
+        return transaction {
+            addLogger(StdOutSqlLogger)
+            BillEntity
+                .join(ClientEntity, JoinType.INNER, additionalConstraint = { BillEntity.clientId eq ClientEntity.id })
+                .selectAll()
+                .map { row ->
+                    val bill = Bill(
+                        id = row[BillEntity.id].value,
+                        total = row[BillEntity.total],
+                        date = row[BillEntity.date],
+                        clientId = row[BillEntity.clientId]
+                    )
+
+                    val client = Client(
+                        id = row[ClientEntity.id].value,
+                        phone = row[ClientEntity.phone],
+                        mail = row[ClientEntity.mail],
+                        card = row[ClientEntity.card],
+                        name = row[ClientEntity.name],
+                        secondName = row[ClientEntity.secondName],
+                        password = row[ClientEntity.password]
+                    )
+
+                    val coffeeList = CoffeeOrderEntity
+                        .join(CoffeeEntity, JoinType.INNER, additionalConstraint = { CoffeeOrderEntity.coffeeId eq CoffeeEntity.id })
+                        .select { CoffeeOrderEntity.billId eq bill.id }
+                        .map {
+                            CoffeeOrder(
+                                price = it[CoffeeOrderEntity.price],
+                                coffeeId = it[CoffeeOrderEntity.coffeeId],
+                                billId = it[CoffeeOrderEntity.billId],
+                                count = it[CoffeeOrderEntity.count],
+                                title = it[CoffeeEntity.name]
+                            )
+                        }
+
+                    BillWithOrders(bill, client, coffeeList)
+                }
+        }
+    }
 
     fun getBills(): List<Bill>{
         val result = mutableListOf<Bill>()

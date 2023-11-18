@@ -19,3 +19,24 @@ data class Bill(
     val total: Double,
     val date: LocalDateTime,
     val clientId: Int)
+
+data class CoffeeOrder(
+    val price: Double,
+    val coffeeId: Int,
+    val billId: Int,
+    val count: Int,
+    val title: String? = null)
+
+data class Coffee(
+    val id: Int,
+    val name: String,
+    val price: Double,
+    val description: String)
+
+data class BillWithOrders(
+    val bill: Bill,
+    val client: Client,
+    val orderList: List<CoffeeOrder>)
+
+
+
