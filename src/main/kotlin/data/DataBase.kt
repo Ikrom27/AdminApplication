@@ -43,8 +43,6 @@ object CoffeeHouseDB {
                         }
                     }
                 }
-
-
                 result.add(
                     Client(
                         it[ClientEntity.id].value,
