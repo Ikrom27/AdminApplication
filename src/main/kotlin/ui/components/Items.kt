@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import data.BillWithOrders
 import data.Client
 
 
@@ -57,6 +58,70 @@ fun ClientCardItem(client: Client) {
                 text = "$${client.averageTotal}",
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.h6)
+        }
+    }
+}
+
+@Composable
+fun BillItem(bill: BillWithOrders){
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = Color(220, 210, 242)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Column(
+                Modifier.weight(0.6f)
+            ) {
+                Text(
+                    text = "#${bill.bill.id}",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                Text(
+                    text = "${bill.client.name} ${bill.client.secondName}",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.body2.copy(
+                        fontSize = 12.sp
+                    ),
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Text(
+                    text = "${bill.bill.date.toLocalDate()}",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.body2.copy(
+                        fontSize = 12.sp
+                    ),
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Text(
+                    text = "Total $${bill.bill.total}",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 14.dp)
+                )
+            }
+            Column(Modifier.weight(0.4f)) {
+                Text(
+                    text = "Details",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                for(i in bill.orderList){
+                    Text(
+                        text = "${i.title} x${i.count}",
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(vertical = 4.dp))
+                }
+            }
         }
     }
 }
