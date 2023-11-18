@@ -10,9 +10,10 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import data.CoffeeHouseDB
-import ui.components.ClientCard
+import ui.components.ClientCardItem
 import ui.dialog.AddClientDialog
 
 
@@ -25,7 +26,7 @@ fun ClientsScreen() {
 
     LazyVerticalGrid(columns = GridCells.Fixed(3)) {
         items(clients.value.size) { index ->
-            ClientCard(client = clients.value[index])
+            ClientCardItem(client = clients.value[index])
         }
         item {
             Button(
@@ -36,8 +37,10 @@ fun ClientsScreen() {
                     .fillMaxHeight(),
                 shape = RoundedCornerShape(8.dp)
             ){
-                Text(text = "\n\n+ добавить пользователя\n")
-                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "\n\n+ добавить пользователя\n\n",
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }
