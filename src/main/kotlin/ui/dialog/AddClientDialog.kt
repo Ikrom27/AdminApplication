@@ -78,15 +78,15 @@ fun AddClientDialog() {
 
         Button(
             onClick = {
-                val newClient = Client(
+                CoffeeHouseDB.addClient(Client(
+                    id = 0,
                     phone = phone.text,
                     mail = mail.text,
                     card = card.text,
                     name = name.text,
                     secondName = secondName.text,
                     password = password.text
-                )
-                CoffeeHouseDB.addClient(newClient)
+                ))
             },
             modifier = Modifier
                 .fillMaxWidth()
