@@ -34,11 +34,11 @@ fun ClientsScreen() {
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
-                    .fillMaxHeight(),
+                    .height(105.dp),
                 shape = RoundedCornerShape(8.dp)
             ){
                 Text(
-                    text = "\n\n+ добавить пользователя\n\n",
+                    text = "+ добавить пользователя",
                     textAlign = TextAlign.Center
                 )
             }

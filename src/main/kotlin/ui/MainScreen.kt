@@ -18,14 +18,14 @@ fun MainScreen() {
     Row{
         Column(
             modifier = Modifier
-                .width(256.dp)
+                .width(192.dp)
                 .background(Color(247, 247, 245))
         ) {
             DrawerContent(selected) { newSelection ->
                 selected = newSelection
             }
         }
-        Column {
+        Column(modifier = Modifier.padding(14.dp)) {
             when(selected) {
                 "Clients" -> ClientsScreen()
                 "Bills" -> BillsScreen()

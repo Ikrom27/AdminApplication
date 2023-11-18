@@ -22,7 +22,8 @@ fun ClientCardItem(client: Client) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .height(105.dp),
         shape = RoundedCornerShape(8.dp),
         backgroundColor = Color(220, 210, 242)
     ) {
