@@ -14,7 +14,7 @@ data class Client(
     val averageTotal: Double? = null
 ) {
     override fun toString(): String {
-        return "#$id"
+        return "#$id $name, $secondName"
     }
 }
 

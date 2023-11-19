@@ -48,7 +48,11 @@ fun BillsScreen() {
         AlertDialog(
             onDismissRequest = { isDialogVisible = false },
             text = {
-                AddBill()
+                AddBill(
+                    onClick = {
+                        isDialogVisible = false
+                    }
+                )
             },
             buttons = {}
         )

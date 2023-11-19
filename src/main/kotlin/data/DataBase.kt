@@ -79,6 +79,23 @@ object CoffeeHouseDB {
         return result
     }
 
+    fun getCoffee(): List<Coffee> {
+        val result = mutableListOf<Coffee>()
+        transaction {
+            CoffeeEntity.selectAll().forEach {
+                result.add(
+                    Coffee(
+                        it[CoffeeEntity.id].value,
+                        it[CoffeeEntity.name],
+                        it[CoffeeEntity.price],
+                        it[CoffeeEntity.description]
+                    )
+                )
+            }
+        }
+        return result
+    }
+
     fun getAllBillsWithOrders(toSort: Boolean = false): List<BillWithOrders> {
         return transaction {
             addLogger(StdOutSqlLogger)
@@ -123,6 +140,17 @@ object CoffeeHouseDB {
 
                     BillWithOrders(bill, client, coffeeList)
                 }
+        }
+    }
+
+    fun addCoffeeToBill(
+        coffeeId: Int,
+        billId: Int,
+        clientId: Int
+    ) {
+        val query = "CALL ADD_COFFEE_TO_BILL($coffeeId, $billId, $clientId);"
+        transaction {
+            exec(query)
         }
     }
 
