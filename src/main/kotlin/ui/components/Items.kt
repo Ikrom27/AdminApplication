@@ -1,16 +1,17 @@
 package ui.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -130,7 +131,6 @@ fun BillItem(bill: BillWithOrders){
 }
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DrawerItem(
     title: String,
@@ -157,3 +157,80 @@ fun DrawerItem(
         )
     }
 }
+
+
+@Composable
+fun DropDownField(
+    label: String,
+    items: List<DropDownItem>,
+    onItemClick: (DropDownItem) -> Unit,
+    value: MutableState<String> = remember { mutableStateOf("") },
+    content: @Composable (DropDownItem) -> Unit
+){
+    var expanded by remember { mutableStateOf(false) }
+    var selectedIndex by remember { mutableStateOf(-1) }
+
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            OutlinedTextField(
+                value = value.value,
+                onValueChange = {
+                    value.value = it
+                    selectedIndex = -1
+                },
+                label = { Text(label)},
+                textStyle = MaterialTheme.typography.body1.copy(fontSize = 16.sp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        expanded = true
+                    }
+            )
+
+            IconButton(
+                onClick = {
+                    expanded = !expanded
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(4.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = "Expand"
+                )
+            }
+        }
+
+        DropdownMenu(
+            expanded = expanded && items.isNotEmpty(),
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .graphicsLayer(
+                    translationY = with(LocalDensity.current) { (-8.dp * selectedIndex).toPx() }
+                )
+        ) {
+            items.forEachIndexed { _, option ->
+                DropdownMenuItem(
+                    onClick = {
+                        onItemClick(option)
+                        value.value = option.title
+                        expanded = false
+                    }
+                ) {
+                    content(option)
+                }
+            }
+        }
+    }
+}
+
+
+class DropDownItem(
+    val title: String,
+    val content: List<Any>? = null
+)

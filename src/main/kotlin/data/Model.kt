@@ -12,13 +12,23 @@ data class Client(
     val secondName: String,
     val password: String,
     val averageTotal: Double? = null
-)
+) {
+    override fun toString(): String {
+        return "#$id"
+    }
+}
+
 
 data class Bill(
     val id: Int,
     val total: Double,
     val date: LocalDateTime,
-    val clientId: Int)
+    val clientId: Int){
+
+    override fun toString(): String {
+        return "#$id"
+    }
+}
 
 data class CoffeeOrder(
     val price: Double,
@@ -37,6 +47,4 @@ data class BillWithOrders(
     val bill: Bill,
     val client: Client,
     val orderList: List<CoffeeOrder>)
-
-
 
