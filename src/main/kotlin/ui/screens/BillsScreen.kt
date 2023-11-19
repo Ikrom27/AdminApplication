@@ -11,7 +11,6 @@ import ui.components.TopBillsBar
 
 @Composable
 fun BillsScreen() {
-    // ...
     var searchText by remember { mutableStateOf("") }
     Scaffold(
         topBar = {
