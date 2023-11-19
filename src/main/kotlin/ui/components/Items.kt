@@ -87,7 +87,7 @@ fun BillItem(bill: BillWithOrders){
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = "${bill.client.name} ${bill.client.secondName}",
+                    text = "#${bill.client.id} ${bill.client.name} ${bill.client.secondName}",
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.body2.copy(

@@ -79,12 +79,17 @@ object CoffeeHouseDB {
         return result
     }
 
-    fun getAllBillsWithOrders(): List<BillWithOrders> {
+    fun getAllBillsWithOrders(toSort: Boolean = false): List<BillWithOrders> {
         return transaction {
             addLogger(StdOutSqlLogger)
             BillEntity
                 .join(ClientEntity, JoinType.INNER, additionalConstraint = { BillEntity.clientId eq ClientEntity.id })
                 .selectAll()
+                .also {
+                    if (toSort){
+                        it.orderBy(BillEntity.total, SortOrder.DESC)
+                    }
+                }
                 .map { row ->
                     val bill = Bill(
                         id = row[BillEntity.id].value,
