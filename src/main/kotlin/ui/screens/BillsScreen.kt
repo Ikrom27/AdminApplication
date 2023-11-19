@@ -2,18 +2,27 @@ package ui.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import data.CoffeeHouseDB
 import ui.components.BillItem
+import ui.components.TopBillsBar
 
 @Composable
 fun BillsScreen() {
-    val bills = mutableStateOf(CoffeeHouseDB.getAllBillsWithOrders())
-    LazyColumn {
-        items(items = bills.value){
-            BillItem(it)
+    // ...
+    var searchText by remember { mutableStateOf("") }
+    Scaffold(
+        topBar = {
+            TopBillsBar(
+                searchText = searchText,
+                onSearchTextChanged = { newSearchText ->
+                    searchText = newSearchText
+                }
+            )
         }
+    ){
+
     }
 }
