@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import data.CoffeeHouseDB
 import ui.components.ClientCardItem
 import ui.components.TopBillsBar
@@ -45,7 +46,8 @@ fun ClientsScreen() {
                 shape = RoundedCornerShape(8.dp)
             ){
                 Text(
-                    text = "+ добавить пользователя",
+                    text = "+",
+                    fontSize = 48.sp,
                     textAlign = TextAlign.Center
                 )
             }
