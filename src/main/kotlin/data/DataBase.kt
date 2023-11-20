@@ -96,12 +96,19 @@ object CoffeeHouseDB {
         return result
     }
 
-    fun getAllBillsWithOrders(toSort: Boolean = false): List<BillWithOrders> {
+    fun getAllBillsWithOrders(toSort: Boolean = false, search: String = ""): List<BillWithOrders> {
         return transaction {
             addLogger(StdOutSqlLogger)
-            BillEntity
+            val baseQuery = BillEntity
                 .join(ClientEntity, JoinType.INNER, additionalConstraint = { BillEntity.clientId eq ClientEntity.id })
-                .selectAll()
+            val searchQuery = if (search.isNotEmpty()) {
+                baseQuery.select {
+                    ClientEntity.name eq search
+                }
+            } else {
+                baseQuery.selectAll()
+            }
+            searchQuery
                 .also {
                     if (toSort){
                         it.orderBy(BillEntity.total, SortOrder.DESC)

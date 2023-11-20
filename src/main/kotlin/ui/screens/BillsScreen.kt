@@ -16,9 +16,13 @@ import ui.dialog.AddBillDialog
 fun BillsScreen() {
     var searchText by remember { mutableStateOf("") }
     var toSort by remember { mutableStateOf(false) }
-    val bills = mutableStateOf(CoffeeHouseDB.getAllBillsWithOrders(toSort))
+    var bills by remember { mutableStateOf(CoffeeHouseDB.getAllBillsWithOrders(toSort, searchText)) }
 
     var isDialogVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(searchText) {
+        bills = CoffeeHouseDB.getAllBillsWithOrders(toSort, searchText)
+    }
 
     Scaffold(
         topBar = {
@@ -37,7 +41,7 @@ fun BillsScreen() {
         }
     ){
         LazyColumn {
-            items(items = bills.value){
+            items(items = bills){
                 BillItem(it)
             }
         }
