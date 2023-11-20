@@ -1,11 +1,15 @@
 package ui.screens
 
+import CoffeeTheme
+import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import data.CoffeeHouseDB
 import ui.components.BillItem
 import ui.components.TopBillsBar
@@ -20,7 +24,7 @@ fun BillsScreen() {
 
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    LaunchedEffect(searchText) {
+    LaunchedEffect(searchText, toSort) {
         bills = CoffeeHouseDB.getAllBillsWithOrders(toSort, searchText)
     }
 
@@ -38,7 +42,8 @@ fun BillsScreen() {
                     searchText = newSearchText
                 }
             )
-        }
+        },
+        backgroundColor = CoffeeTheme.background
     ){
         LazyColumn {
             items(items = bills){

@@ -109,11 +109,12 @@ fun EditClientDialog(client: Client) {
                     errorText = "${e.message}"
                 }
             },
+            colors =  ButtonDefaults.buttonColors(backgroundColor = CoffeeTheme.primary),
             modifier = Modifier
                 .width(256.dp)
                 .padding(top = 12.dp)
         ) {
-            Text("Update")
+            Text("Update", color = Color.White)
         }
 
         Button(
@@ -124,12 +125,12 @@ fun EditClientDialog(client: Client) {
                     errorText = "${e.message}"
                 }
             },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+            colors =  ButtonDefaults.buttonColors(backgroundColor = Color(240, 240, 240)),
             modifier = Modifier
                 .width(256.dp)
                 .padding(top = 4.dp)
         ) {
-            Text("Delete", color = Color.White)
+            Text("Delete", color = Color.Red)
         }
     }
 }

@@ -101,19 +101,19 @@ object CoffeeHouseDB {
             addLogger(StdOutSqlLogger)
             val baseQuery = BillEntity
                 .join(ClientEntity, JoinType.INNER, additionalConstraint = { BillEntity.clientId eq ClientEntity.id })
-            val searchQuery = if (search.isNotEmpty()) {
-                baseQuery.select {
-                    ClientEntity.name eq search
+            var searchQuery =
+                if (search.isNotEmpty()) {
+                    baseQuery.select {
+                        ClientEntity.name eq search
+                    }
+                } else {
+                        baseQuery.selectAll()
                 }
-            } else {
-                baseQuery.selectAll()
+            println(toSort)
+            if (toSort) {
+                searchQuery = searchQuery.orderBy(BillEntity.total, SortOrder.DESC)
             }
             searchQuery
-                .also {
-                    if (toSort){
-                        it.orderBy(BillEntity.total, SortOrder.DESC)
-                    }
-                }
                 .map { row ->
                     val bill = Bill(
                         id = row[BillEntity.id].value,

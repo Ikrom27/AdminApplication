@@ -1,5 +1,6 @@
 package ui.components
 
+import CoffeeTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -38,11 +39,12 @@ fun TopBillsBar(
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
+                    tint = MaterialTheme.colors.onSecondary,
                     contentDescription = "Search by name",
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color(224, 224, 224),
+                backgroundColor = CoffeeTheme.secondary,
                 unfocusedLabelColor = MaterialTheme.colors.onBackground,
                 focusedLabelColor = MaterialTheme.colors.onBackground,
                 cursorColor = MaterialTheme.colors.onBackground,
@@ -63,7 +65,7 @@ fun TopBillsBar(
                 painter = painterResource("sort.svg"),
                 contentDescription = "Sort",
                 modifier = Modifier.size(42.dp).padding(start = 8.dp, top = 6.dp),
-                tint = if(isSortActive) MaterialTheme.colors.primary else Color(204, 204, 204)
+                tint = if(isSortActive) CoffeeTheme.primary else CoffeeTheme.secondary
             )
         }
         IconButton(
@@ -76,7 +78,7 @@ fun TopBillsBar(
                 painter = painterResource("add.svg"),
                 contentDescription = "Add",
                 modifier = Modifier.size(28.dp),
-                tint = Color(204, 204, 204)
+                tint = CoffeeTheme.secondary
             )
         }
     }

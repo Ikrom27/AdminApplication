@@ -1,5 +1,6 @@
 package ui.components
 
+import CoffeeTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +10,6 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -30,7 +30,7 @@ fun ClientCardItem(client: Client, onClick: () -> Unit) {
             .height(105.dp),
         shape = RoundedCornerShape(8.dp),
         onClick = onClick,
-        backgroundColor = Color(220, 210, 242)
+        backgroundColor = CoffeeTheme.secondary
     ) {
         Column(
             modifier = Modifier
@@ -73,7 +73,7 @@ fun BillItem(bill: BillWithOrders){
             .padding(8.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
-        backgroundColor = Color(220, 210, 242)
+        backgroundColor = CoffeeTheme.secondary
     ) {
         Row(
             modifier = Modifier.padding(16.dp)
@@ -137,13 +137,13 @@ fun DrawerItem(
     selected: String,
     onClick: () -> Unit
 ){
-    var bgColor = Color(247, 247, 245)
+    var bgColor = CoffeeTheme.backgroundSecondary
     if (selected == title){
-        bgColor = Color(220, 210, 242)
+        bgColor = CoffeeTheme.secondary
     }
 
     Card(
-        shape = RoundedCornerShape(100.dp),
+        shape = RoundedCornerShape(10.dp),
         backgroundColor = bgColor,
         elevation = 0.dp,
         modifier = Modifier

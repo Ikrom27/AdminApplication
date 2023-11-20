@@ -16,7 +16,7 @@ fun DrawerContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 22.dp)
     ) {
         DrawerItem("Clients", selected) {
             onSelectionChange("Clients")

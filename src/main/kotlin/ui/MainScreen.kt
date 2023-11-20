@@ -1,5 +1,6 @@
 package ui
 
+import CoffeeTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,11 +19,13 @@ import ui.screens.CoffeeScreen
 fun MainScreen() {
     var selected by remember { mutableStateOf("Clients") }
 
-    Row{
+    Row(
+        modifier = Modifier.background(CoffeeTheme.background)
+    ){
         Column(
             modifier = Modifier
                 .width(192.dp)
-                .background(Color(247, 247, 245))
+                .background(CoffeeTheme.backgroundSecondary)
         ) {
             DrawerContent(selected) { newSelection ->
                 selected = newSelection

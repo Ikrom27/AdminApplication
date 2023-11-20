@@ -1,13 +1,11 @@
 package ui.dialog
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import data.Client
@@ -110,11 +108,12 @@ fun AddClientDialog() {
                     errorText = "${e.message}"
                 }
             },
+            colors =  ButtonDefaults.buttonColors(backgroundColor = CoffeeTheme.primary),
             modifier = Modifier
                 .width(256.dp)
                 .padding(top = 16.dp)
         ) {
-            Text("Добавить")
+            Text("Добавить", color = Color.White)
         }
     }
 }

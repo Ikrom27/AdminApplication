@@ -1,9 +1,16 @@
 package ui.dialog
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import data.CoffeeHouseDB
 import ui.components.DropDownField
 import ui.components.DropDownItem
@@ -24,8 +31,7 @@ fun AddBillDialog(
         CoffeeHouseDB.getCoffee().map { DropDownItem("${it.name}", listOf(it.id)) }) }
 
     (billList as ArrayList).add(DropDownItem("New bill"))
-
-    Column {
+    Column{
         DropDownField(
             label = "Coffee",
             items = coffeeList,
@@ -70,9 +76,11 @@ fun AddBillDialog(
             onClick = {
                 CoffeeHouseDB.addCoffeeToBill(coffeeId,  billId, clientId)
                 onClick()
-            }
+            },
+            colors =  ButtonDefaults.buttonColors(backgroundColor = CoffeeTheme.primary),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Add")
+            Text("Add", color = Color.White)
         }
     }
 }
