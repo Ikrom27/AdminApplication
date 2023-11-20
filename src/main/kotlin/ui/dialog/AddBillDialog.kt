@@ -7,29 +7,28 @@ import androidx.compose.runtime.*
 import data.CoffeeHouseDB
 import ui.components.DropDownField
 import ui.components.DropDownItem
-import ui.screens.CoffeeScreen
 
 @Composable
-fun AddBill(
+fun AddBillDialog(
     onClick: () -> Unit
 ) {
     var billId by remember { mutableStateOf(-1) }
     var clientId by remember { mutableStateOf(-1) }
     var coffeeId by remember { mutableStateOf(-1) }
 
-    val bills by remember { mutableStateOf(
-        CoffeeHouseDB.getBills().map { DropDownItem(it.toString(), listOf(it.id, it.clientId)) }) }
-    val clients by remember { mutableStateOf(
-        CoffeeHouseDB.getClients().map { DropDownItem(it.toString(), listOf(it.id)) }) }
-    val coffee by remember { mutableStateOf(
-        CoffeeHouseDB.getCoffee().map { DropDownItem(it.name, listOf(it.id)) }) }
+    val billList by remember { mutableStateOf(
+        CoffeeHouseDB.getBills().map { DropDownItem("#${it.id}", listOf(it.id, it.clientId)) }) }
+    val clientList by remember { mutableStateOf(
+        CoffeeHouseDB.getClients().map { DropDownItem("#${it.id} ${it.name} ${it.secondName}", listOf(it.id)) }) }
+    val coffeeList by remember { mutableStateOf(
+        CoffeeHouseDB.getCoffee().map { DropDownItem("${it.name}", listOf(it.id)) }) }
 
-    (bills as ArrayList).add(DropDownItem("New bill"))
+    (billList as ArrayList).add(DropDownItem("New bill"))
 
     Column {
         DropDownField(
             label = "Coffee",
-            items = coffee,
+            items = coffeeList,
             onItemClick = {
                 it.content?.let {content->
                     coffeeId = content[0] as Int
@@ -40,7 +39,7 @@ fun AddBill(
         }
         DropDownField(
             label = "Bill id",
-            items = bills,
+            items = billList,
             onItemClick = {
                 if (it.title != "New bill"){
                     it.content?.let {content->
@@ -56,7 +55,7 @@ fun AddBill(
         }
         DropDownField(
             label = "Client id",
-            items = clients,
+            items = clientList,
             value = if (clientId != -1) mutableStateOf("#${clientId}") else mutableStateOf(""),
             onItemClick = {
                 it.content?.let {content->
@@ -66,6 +65,7 @@ fun AddBill(
         ) {
             Text(text = it.title)
         }
+
         Button(
             onClick = {
                 CoffeeHouseDB.addCoffeeToBill(coffeeId,  billId, clientId)

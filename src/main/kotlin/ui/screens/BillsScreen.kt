@@ -9,8 +9,7 @@ import androidx.compose.runtime.*
 import data.CoffeeHouseDB
 import ui.components.BillItem
 import ui.components.TopBillsBar
-import ui.dialog.AddBill
-import ui.dialog.EditClientDialog
+import ui.dialog.AddBillDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -48,7 +47,7 @@ fun BillsScreen() {
         AlertDialog(
             onDismissRequest = { isDialogVisible = false },
             text = {
-                AddBill(
+                AddBillDialog(
                     onClick = {
                         isDialogVisible = false
                     }
