@@ -1,6 +1,7 @@
 package ui.components
 
 import CoffeeTheme
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -213,7 +214,7 @@ fun DropDownField(
     var expanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(-1) }
 
-    Column {
+    Column{
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -253,6 +254,7 @@ fun DropDownField(
             expanded = expanded && items.isNotEmpty(),
             onDismissRequest = { expanded = false },
             modifier = Modifier
+                .background(MaterialTheme.colors.background)
                 .graphicsLayer(
                     translationY = with(LocalDensity.current) { (-8.dp * selectedIndex).toPx() }
                 )
@@ -263,7 +265,7 @@ fun DropDownField(
                         onItemClick(option)
                         value.value = option.title
                         expanded = false
-                    }
+                    },
                 ) {
                     content(option)
                 }
