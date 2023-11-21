@@ -49,3 +49,9 @@ data class BillWithOrders(
     val client: Client,
     val orderList: List<CoffeeOrder>)
 
+
+data class ClientCoffee(
+    val client: String,
+    val coffee: String
+)
+

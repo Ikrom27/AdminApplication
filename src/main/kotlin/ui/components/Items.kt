@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import data.BillWithOrders
 import data.Client
+import data.ClientCoffee
 import data.Coffee
 
 
@@ -51,19 +52,31 @@ fun ClientCardItem(client: Client, onClick: () -> Unit) {
                     fontSize = 12.sp
                 )
             )
-//            Text(
-//                text = "${client.password}",
-//                maxLines = 1,
-//                overflow = TextOverflow.Ellipsis,
-//                style = MaterialTheme.typography.body2.copy(
-//                    fontSize = 12.sp
-//                )
-//            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "$${client.averageTotal}",
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.h6)
+        }
+    }
+}
+
+@Composable
+fun ClientCoffeeItem(item: ClientCoffee) {
+    Card(
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 1.dp),
+        shape = RoundedCornerShape(0.dp),
+        backgroundColor = CoffeeTheme.secondary
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "${item.client} - ${item.coffee}",
+                fontSize = 24.sp
+            )
         }
     }
 }

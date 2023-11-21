@@ -14,12 +14,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import data.CoffeeHouseDB
 import ui.components.ClientCardItem
+import ui.components.ClientCoffeeItem
 import ui.components.CoffeeCardItem
 import kotlin.math.ceil
 
 @Composable
 fun CoffeeScreen() {
     val coffeeList by remember { mutableStateOf(CoffeeHouseDB.getCoffee()) }
+    val clientCoffeeList by remember { mutableStateOf(CoffeeHouseDB.getClientCoffee()) }
 
     val gridColumns = 3
     val gridItemHeight = 117 + 16
@@ -62,6 +64,9 @@ fun CoffeeScreen() {
                 color = MaterialTheme.colors.onBackground,
                 modifier = Modifier.padding(12.dp)
             )
+        }
+        items(items = clientCoffeeList) {
+            ClientCoffeeItem(it, )
         }
     }
 }

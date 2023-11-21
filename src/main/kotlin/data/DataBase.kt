@@ -2,6 +2,7 @@ package data
 
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -14,6 +15,24 @@ object CoffeeHouseDB {
             user = "root",
             password = "07601367"
         )
+    }
+
+    fun getClientCoffee(): List<ClientCoffee> {
+        return transaction {
+            val result = mutableListOf<ClientCoffee>()
+            val query = "CALL DISPLAY_COFFEE()"
+
+            exec(query) { rs ->
+                while (rs.next()) {
+                    val clientName = rs.getString("client")
+                    val coffeeName = rs.getString("coffee")
+
+                    result.add(ClientCoffee(clientName, coffeeName))
+                }
+            }
+
+            result
+        }
     }
 
     fun addClient(client: Client){
