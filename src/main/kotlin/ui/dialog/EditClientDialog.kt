@@ -125,7 +125,7 @@ fun EditClientDialog(client: Client) {
                     errorText = "${e.message}"
                 }
             },
-            colors =  ButtonDefaults.buttonColors(backgroundColor = Color(240, 240, 240)),
+            colors =  ButtonDefaults.buttonColors(backgroundColor = CoffeeTheme.backgroundSecondary),
             modifier = Modifier
                 .width(256.dp)
                 .padding(top = 4.dp)
