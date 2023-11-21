@@ -41,7 +41,8 @@ data class Coffee(
     val id: Int,
     val name: String,
     val price: Double,
-    val description: String)
+    val description: String,
+    val count: Int? = null)
 
 data class BillWithOrders(
     val bill: Bill,

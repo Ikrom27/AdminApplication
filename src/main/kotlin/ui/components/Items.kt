@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import data.BillWithOrders
 import data.Client
+import data.Coffee
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -62,6 +63,48 @@ fun ClientCardItem(client: Client, onClick: () -> Unit) {
                 text = "$${client.averageTotal}",
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.h6)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun CoffeeCardItem(
+    coffee: Coffee,
+    onClick: () -> Unit
+){
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        onClick = onClick,
+        backgroundColor = CoffeeTheme.secondary
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = coffee.name,
+                fontSize = 20.sp,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colors.onSecondary,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                modifier = Modifier.padding(vertical = 4.dp)
+            )
+            Text(
+                text = "Orders: ${coffee.count}",
+                fontSize = 14.sp,
+                color = MaterialTheme.colors.onSecondary,
+                modifier = Modifier.padding(vertical = 4.dp)
+            )
+            Text(
+                text = "$${coffee.price}",
+                color = MaterialTheme.colors.onSecondary,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(vertical = 4.dp)
+            )
         }
     }
 }

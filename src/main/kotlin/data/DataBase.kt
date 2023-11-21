@@ -83,12 +83,22 @@ object CoffeeHouseDB {
         val result = mutableListOf<Coffee>()
         transaction {
             CoffeeEntity.selectAll().forEach {
+                var count = 0
+                transaction {
+                    val query = "select COFFEE_COUNT(${it[CoffeeEntity.id].value}) as result"
+                    exec(query) { result ->
+                        if (result.next()) {
+                            count = result.getInt("result")
+                        }
+                    }
+                }
                 result.add(
                     Coffee(
                         it[CoffeeEntity.id].value,
                         it[CoffeeEntity.name],
                         it[CoffeeEntity.price],
-                        it[CoffeeEntity.description]
+                        it[CoffeeEntity.description],
+                        count
                     )
                 )
             }

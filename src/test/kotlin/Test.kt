@@ -2,6 +2,6 @@ import data.CoffeeHouseDB
 
 
 fun main(){
-    val result = CoffeeHouseDB.getAllBillsWithOrders()
+    val result = CoffeeHouseDB.getCoffee()
     println()
 }
