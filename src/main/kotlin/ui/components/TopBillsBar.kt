@@ -40,7 +40,7 @@ fun TopBillsBar(
                 Icon(
                     imageVector = Icons.Default.Search,
                     tint = MaterialTheme.colors.onSecondary,
-                    contentDescription = "Search by name",
+                    contentDescription = "",
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
@@ -68,6 +68,8 @@ fun TopBillsBar(
                 tint = if(isSortActive) CoffeeTheme.primary else CoffeeTheme.secondary
             )
         }
+
+        // Кнопка добавления
         IconButton(
             onClick = {
                 onAdd()

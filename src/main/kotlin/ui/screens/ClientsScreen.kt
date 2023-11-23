@@ -1,13 +1,11 @@
 package ui.screens
 
 import CoffeeTheme
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,9 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import data.CoffeeHouseDB
+import data.CafeDB
 import ui.components.ClientCardItem
-import ui.components.TopBillsBar
 import ui.dialog.AddClientDialog
 import ui.dialog.EditClientDialog
 
@@ -29,7 +26,7 @@ fun ClientsScreen() {
     var isEditClientVisible by remember { mutableStateOf(false) }
     var currentClientId by remember { mutableStateOf(0) }
 
-    val clients = mutableStateOf(CoffeeHouseDB.getClients())
+    val clients = mutableStateOf(CafeDB.getClients())
     Column {
         Text(
             text = "Clients",

@@ -3,55 +3,74 @@ package data
 import java.time.LocalDateTime
 import java.util.*
 
-data class Client(
+
+data class Anticafe(
     val id: Int,
-    val phone: String,
-    val mail: String,
-    val card: String,
-    val name: String,
-    val secondName: String,
-    val password: String,
-    val averageTotal: Double? = null
-) {
-    override fun toString(): String {
-        return "#$id $name, $secondName"
-    }
-}
-
-
-data class Bill(
-    val id: Int,
-    val total: Double,
-    val date: LocalDateTime,
-    val clientId: Int){
-
-    override fun toString(): String {
-        return "#$id"
-    }
-}
-
-data class CoffeeOrder(
-    val price: Double,
-    val coffeeId: Int,
-    val billId: Int,
-    val count: Int,
-    val title: String? = null)
-
-data class Coffee(
-    val id: Int,
-    val name: String,
-    val price: Double,
-    val description: String,
-    val count: Int? = null)
-
-data class BillWithOrders(
-    val bill: Bill,
-    val client: Client,
-    val orderList: List<CoffeeOrder>)
-
-
-data class ClientCoffee(
-    val client: String,
-    val coffee: String
+    val adressAnticafe: String?
 )
 
+data class Booking(
+    val id: Int,
+    val numberOfGuests: Int?,
+    val idAnticafe: Int?,
+    val idTreaty: Int?,
+    val idClient: ByteArray?
+)
+
+data class Client(
+    val idClient: ByteArray,
+    val telNumber: Int?,
+    val name: String?,
+    val dataBirthday: Int?,
+    val mail: String?
+)
+
+data class Events(
+    val id: Int,
+    val nameEvents: String?
+)
+
+data class News(
+    val date: java.sql.Date?,
+    val headerTheme: String?,
+    val idWorker: String,
+    val idNews: Int
+)
+
+data class Organizers(
+    val telNumber: Int?,
+    val mail: String?,
+    val name: String?,
+    val idOrganizers: Int,
+    val dateBirthday: Int?
+)
+
+data class Payment(
+    val sum: Int?,
+    val idBooking: Int,
+    val status: String?
+)
+
+data class Review(
+    val author: String?,
+    val idReview: String,
+    val idNews: Int
+)
+
+data class Treaty(
+    val idTreaty: Int,
+    val dateOfSigning: java.sql.Date?,
+    val expirationDate: java.sql.Date?,
+    val idOrganizers: Int,
+    val idWorker: String,
+    val idEvents: Int?
+)
+
+data class Worker(
+    val telNumber: Int?,
+    val mail: String?,
+    val name: String?,
+    val idWorker: String,
+    val seniority: Int?,
+    val skill: String?
+)

@@ -2,209 +2,55 @@ package data
 
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 
-
-object CoffeeHouseDB {
-
+object CafeDB {
     init {
         Database.connect(
-            url = "jdbc:mysql://localhost:3306/coffee_house",
+            url = "jdbc:mysql://localhost:3306/anticafe",
             driver = "com.mysql.cj.jdbc.Driver",
-            user = "root",
-            password = "07601367"
+            user = "",
+            password = ""
         )
     }
 
-    fun getClientCoffee(): List<ClientCoffee> {
+    fun createEvent(nameEvents: String?) {
+        transaction {
+            EventsTable.insertAndGetId {
+                it[EventsTable.nameEvents] = nameEvents
+            }
+        }
+    }
+
+    fun getEvent(id: Int): Events? {
         return transaction {
-            val result = mutableListOf<ClientCoffee>()
-            val query = "CALL DISPLAY_COFFEE()"
-
-            exec(query) { rs ->
-                while (rs.next()) {
-                    val clientName = rs.getString("client")
-                    val coffeeName = rs.getString("coffee")
-
-                    result.add(ClientCoffee(clientName, coffeeName))
-                }
-            }
-
-            result
+            EventsTable
+                .select { EventsTable.id eq id }
+                .singleOrNull()
+                ?.toEvents()
         }
     }
 
-    fun addClient(client: Client){
-        transaction {
-            ClientEntity.insertAndGetId {
-                it[phone] = client.phone
-                it[mail] = client.mail
-                it[card] = client.card
-                it[name] = client.name
-                it[secondName] = client.secondName
-                it[password] = client.password
-            }
-        }
-    }
-
-    fun updateClient(client: Client) {
-        transaction {
-            ClientEntity.update({ ClientEntity.id eq client.id }) {
-                it[phone] = client.phone
-                it[mail] = client.mail
-                it[card] = client.card
-                it[name] = client.name
-                it[secondName] = client.secondName
-                it[password] = client.password
-            }
-        }
-    }
-
-    fun deleteClient(clientId: Int) {
-        transaction {
-            ClientEntity.deleteWhere { ClientEntity.id eq clientId }
-        }
-    }
-
-    fun getClients(): List<Client> {
-        val result = mutableListOf<Client>()
-        transaction {
-            ClientEntity.selectAll().forEach {
-                var averageTotal = 0.0
-
-                transaction {
-                    val query = "SELECT MIDDLE_TOTAL(${it[ClientEntity.id].value}) as result"
-                    exec(query) { result ->
-                        if (result.next()) {
-                            averageTotal = result.getDouble("result")
-                        }
-                    }
-                }
-                result.add(
-                    Client(
-                        it[ClientEntity.id].value,
-                        it[ClientEntity.phone],
-                        it[ClientEntity.mail],
-                        it[ClientEntity.card],
-                        it[ClientEntity.name],
-                        it[ClientEntity.secondName],
-                        it[ClientEntity.password],
-                        averageTotal
-                    )
-                )
-            }
-        }
-        return result
-    }
-
-    fun getCoffee(): List<Coffee> {
-        val result = mutableListOf<Coffee>()
-        transaction {
-            CoffeeEntity.selectAll().forEach {
-                var count = 0
-                transaction {
-                    val query = "select COFFEE_COUNT(${it[CoffeeEntity.id].value}) as result"
-                    exec(query) { result ->
-                        if (result.next()) {
-                            count = result.getInt("result")
-                        }
-                    }
-                }
-                result.add(
-                    Coffee(
-                        it[CoffeeEntity.id].value,
-                        it[CoffeeEntity.name],
-                        it[CoffeeEntity.price],
-                        it[CoffeeEntity.description],
-                        count
-                    )
-                )
-            }
-        }
-        return result
-    }
-
-    fun getAllBillsWithOrders(toSort: Boolean = false, search: String = ""): List<BillWithOrders> {
+    fun updateEvent(id: Int, newNameEvents: String?): Boolean {
         return transaction {
-            addLogger(StdOutSqlLogger)
-            val baseQuery = BillEntity
-                .join(ClientEntity, JoinType.INNER, additionalConstraint = { BillEntity.clientId eq ClientEntity.id })
-            var searchQuery =
-                if (search.isNotEmpty()) {
-                    baseQuery.select {
-                        ClientEntity.name eq search
-                    }
-                } else {
-                        baseQuery.selectAll()
-                }
-            println(toSort)
-            if (toSort) {
-                searchQuery = searchQuery.orderBy(BillEntity.total, SortOrder.DESC)
-            }
-            searchQuery
-                .map { row ->
-                    val bill = Bill(
-                        id = row[BillEntity.id].value,
-                        total = row[BillEntity.total],
-                        date = row[BillEntity.date],
-                        clientId = row[BillEntity.clientId]
-                    )
-
-                    val client = Client(
-                        id = row[ClientEntity.id].value,
-                        phone = row[ClientEntity.phone],
-                        mail = row[ClientEntity.mail],
-                        card = row[ClientEntity.card],
-                        name = row[ClientEntity.name],
-                        secondName = row[ClientEntity.secondName],
-                        password = row[ClientEntity.password]
-                    )
-
-                    val coffeeList = CoffeeOrderEntity
-                        .join(CoffeeEntity, JoinType.INNER, additionalConstraint = { CoffeeOrderEntity.coffeeId eq CoffeeEntity.id })
-                        .select { CoffeeOrderEntity.billId eq bill.id }
-                        .map {
-                            CoffeeOrder(
-                                price = it[CoffeeOrderEntity.price],
-                                coffeeId = it[CoffeeOrderEntity.coffeeId],
-                                billId = it[CoffeeOrderEntity.billId],
-                                count = it[CoffeeOrderEntity.count],
-                                title = it[CoffeeEntity.name]
-                            )
-                        }
-
-                    BillWithOrders(bill, client, coffeeList)
-                }
+            EventsTable
+                .update({ EventsTable.id eq id }) {
+                    it[EventsTable.nameEvents] = newNameEvents
+                } > 0
         }
     }
 
-    fun addCoffeeToBill(
-        coffeeId: Int,
-        billId: Int,
-        clientId: Int
-    ) {
-        val query = "CALL ADD_COFFEE_TO_BILL($coffeeId, $billId, $clientId);"
-        transaction {
-            exec(query)
+    fun deleteEvent(id: Int): Boolean {
+        return transaction {
+            EventsTable
+                .deleteWhere { EventsTable.id eq id } > 0
         }
     }
 
-    fun getBills(): List<Bill>{
-        val result = mutableListOf<Bill>()
-        transaction {
-            BillEntity.selectAll().forEach {
-                result.add(
-                    Bill(
-                        it[BillEntity.id].value,
-                        it[BillEntity.total],
-                        it[BillEntity.date],
-                        it[BillEntity.clientId]
-                    )
-                )
-                println(it[BillEntity.total])
-            }
-        }
-        return result
+    private fun ResultRow.toEvents(): Events {
+        return Events(
+            this[EventsTable.id].value,
+            this[EventsTable.nameEvents]
+        )
     }
 }

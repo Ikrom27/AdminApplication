@@ -35,9 +35,7 @@ fun App() {
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "MasterCheff",
-        icon = painterResource("coffee-cup.png"),
-        undecorated = false
+        title = "Application",
     ) {
         App()
     }

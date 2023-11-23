@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ui.components.DrawerContent
 import ui.screens.BillsScreen
 import ui.screens.ClientsScreen
 import ui.screens.CoffeeScreen
+import ui.screens.NewScreen
 
 @Composable
 fun MainScreen() {
@@ -31,11 +31,13 @@ fun MainScreen() {
                 selected = newSelection
             }
         }
+        //Новые экраны будут появляться справа
         Column(modifier = Modifier.padding(14.dp)) {
             when(selected) {
                 "Clients" -> ClientsScreen()
                 "Bills" -> BillsScreen()
                 "Coffee" -> CoffeeScreen()
+                "New" -> NewScreen()
             }
         }
     }

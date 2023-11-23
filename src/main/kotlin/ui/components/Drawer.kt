@@ -18,14 +18,20 @@ fun DrawerContent(
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 22.dp)
     ) {
-        DrawerItem("Clients", selected) {
-            onSelectionChange("Clients")
+        DrawerItem("Новости", selected) {
+            onSelectionChange("Новости")
         }
-        DrawerItem("Bills", selected) {
-            onSelectionChange("Bills")
+        DrawerItem("Клиенты", selected) {
+            onSelectionChange("Клиенты")
         }
-        DrawerItem("Coffee", selected) {
-            onSelectionChange("Coffee")
+        DrawerItem("Организаторы", selected) {
+            onSelectionChange("Организаторы")
+        }
+        DrawerItem("Мероприятия", selected) {
+            onSelectionChange("Мероприятия")
+        }
+        DrawerItem("Инфо", selected) {
+            onSelectionChange("Инфо")
         }
     }
 }

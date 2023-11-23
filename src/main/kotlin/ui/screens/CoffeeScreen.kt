@@ -12,16 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import data.CoffeeHouseDB
-import ui.components.ClientCardItem
+import data.CafeDB
 import ui.components.ClientCoffeeItem
 import ui.components.CoffeeCardItem
 import kotlin.math.ceil
 
 @Composable
 fun CoffeeScreen() {
-    val coffeeList by remember { mutableStateOf(CoffeeHouseDB.getCoffee()) }
-    val clientCoffeeList by remember { mutableStateOf(CoffeeHouseDB.getClientCoffee()) }
+    val coffeeList by remember { mutableStateOf(CafeDB.getCoffee()) }
+    val clientCoffeeList by remember { mutableStateOf(CafeDB.getClientCoffee()) }
 
     val gridColumns = 3
     val gridItemHeight = 117 + 16

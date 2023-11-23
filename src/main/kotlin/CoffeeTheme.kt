@@ -1,8 +1,8 @@
 import androidx.compose.ui.graphics.Color
 
 object CoffeeTheme {
-    val primary = Color(127, 73, 41)
-    val secondary = Color(165, 121, 56)
-    val backgroundSecondary = Color(230, 198, 164)
-    val background = Color(243, 229, 210)
+    val primary = Color(75, 52, 44)
+    val secondary = Color(137, 106, 77)
+    val backgroundSecondary = Color(210, 193, 167)
+    val background = Color(240, 228, 216)
 }
