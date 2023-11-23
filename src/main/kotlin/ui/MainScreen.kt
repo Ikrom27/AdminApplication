@@ -10,9 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ui.components.DrawerContent
-import ui.screens.BillsScreen
-import ui.screens.ClientsScreen
-import ui.screens.CoffeeScreen
 import ui.screens.NewScreen
 
 @Composable
@@ -34,9 +31,6 @@ fun MainScreen() {
         //Новые экраны будут появляться справа
         Column(modifier = Modifier.padding(14.dp)) {
             when(selected) {
-                "Clients" -> ClientsScreen()
-                "Bills" -> BillsScreen()
-                "Coffee" -> CoffeeScreen()
                 "New" -> NewScreen()
             }
         }

@@ -4,10 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -18,10 +16,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import data.CafeDB
-import ui.components.BillItem
 import ui.components.ClientCardItem
 import ui.components.TopBillsBar
-import ui.dialog.AddClientDialog
 import ui.dialog.EditClientDialog
 
 
@@ -36,7 +32,7 @@ fun NewScreen() {
     var toSort by remember { mutableStateOf(false) }
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    val item = mutableStateOf(CafeDB.getClients())
+    val item = mutableStateOf(CafeDB.getEvents())
 
     Scaffold(
         topBar = {
@@ -69,7 +65,7 @@ fun NewScreen() {
             LazyVerticalGrid(columns = GridCells.Adaptive(156.dp)) {
                 items(item.value.size) { index ->
                     ClientCardItem(
-                        client = item.value[index],
+                        events = item.value[index],
                         onClick = {
                             isEditVisible = true
                             currentIndex = index
@@ -102,7 +98,7 @@ fun NewScreen() {
         AlertDialog(
             onDismissRequest = { isAddDialogVisible = false },
             text = {
-                AddClientDialog()
+
             },
             buttons = {}
         )
@@ -111,7 +107,7 @@ fun NewScreen() {
         AlertDialog(
             onDismissRequest = { isEditVisible = false },
             text = {
-                EditClientDialog(item.value[currentIndex])
+//                EditClientDialog(item.value[currentIndex])
             },
             buttons = {}
         )

@@ -6,10 +6,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import data.Client
-import data.CafeDB
+import data.Events
 
 @Composable
 fun EditClientDialog(client: Client) {

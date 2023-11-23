@@ -2,7 +2,9 @@ package ui.components
 
 import CoffeeTheme
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -11,15 +13,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import data.Client
+import data.Events
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ClientCardItem(client: Client, onClick: () -> Unit) {
+fun ClientCardItem(events: Events, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -34,28 +34,8 @@ fun ClientCardItem(client: Client, onClick: () -> Unit) {
                 .padding(16.dp)
         ) {
             Text(
-                text = "${client.name}",
+                text = "${events.nameEvents}",
                 style = MaterialTheme.typography.h6)
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = "${client.mail}",
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.body2.copy(
-                    fontSize = 12.sp
-                )
-            )
-
-            Text(
-                text = "client.mail",
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.body2.copy(
-                    fontSize = 12.sp
-                )
-            )
         }
     }
 }

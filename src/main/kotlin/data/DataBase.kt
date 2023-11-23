@@ -22,13 +22,14 @@ object CafeDB {
         }
     }
 
-    fun getEvent(id: Int): Events? {
-        return transaction {
-            EventsTable
-                .select { EventsTable.id eq id }
-                .singleOrNull()
-                ?.toEvents()
+    fun getEvents(): List<Events> {
+        val result = mutableListOf<Events>()
+        transaction {
+            EventsTable.selectAll().forEach {
+                result.add(it.toEvents())
+            }
         }
+        return result
     }
 
     fun updateEvent(id: Int, newNameEvents: String?): Boolean {
